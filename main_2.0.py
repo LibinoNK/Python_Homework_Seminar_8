@@ -81,6 +81,24 @@ def delite_contact(contacts: list) -> None:
         contacts.pop(ind)
 
 
+def change_contact(contacts: list):
+    name = input('Введите имя контакта, который нужно изменить?\n>>> ')
+    family = input('Введите фамилию контакта, который нужно изменить?\n>>> ')
+    found = list(filter(lambda el: name in el['first_name'] and family in el['second_name'], contacts))
+    print(found)
+    ind = 0
+    res = 0
+    for i in contacts:
+        if i == found[0]:
+            res = ind
+        ind += 1
+    contacts[res] = dict(
+        first_name=input('Введите новое имя контакта: \n>>> '),
+        second_name=input('Введите новую фамилию контакта: \n>>> '),
+        contacts=input('Введите новый номер телефона: \n>>> ')
+    )
+    return contacts
+
 def menu(data: list):
     command = -1
     commands = [
@@ -88,7 +106,8 @@ def menu(data: list):
         'Показать все контакты',
         'Найти контакт',
         'Создать контакт',
-        'Удалить контакт'
+        'Удалить контакт',
+        'Изменить контакт'
     ]
     while command != 0:
         print('=====МЕНЮ=====')
@@ -102,6 +121,8 @@ def menu(data: list):
             new_contact(data)
         elif command == 4:
             delite_contact(data)
+        elif command == 5:
+            change_contact(data)
         else:
             print(f'Такой команды не существует!\n')
 
